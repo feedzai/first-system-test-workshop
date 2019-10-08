@@ -32,6 +32,9 @@ public class PetClinicApiTest {
                             .forPort(EnvironmentProperties.PETCLINIC_HTTP_PORT)
                             .forStatusCode(HttpStatus.SC_OK));
 
+    /**
+     * Call Rest API 'owners' endpoint to assert that the list of users works correctly and that a given user is returned.
+     */
     @Test
     public void assertUsersList() {
         final int servicePort = petclinic.getMappedPort(EnvironmentProperties.PETCLINIC_HTTP_PORT);

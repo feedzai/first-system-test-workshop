@@ -24,6 +24,9 @@ public class PetclinicSeleniumTest {
     PetclinicSelenium petclinicSelenium = new PetclinicSelenium(
             EnvironmentProperties.PETCLINIC_HOST, EnvironmentProperties.PETCLINIC_HTTP_PORT);
 
+    /**
+     * Uses Selenium to navigate to the owners page and assert that the users list presented contain the given user.
+     */
     @Test
     @Ignore("We are not integrated with test containers, environment needs to be bootstrapped manually.")
     public void assertUsersList() {
