@@ -9,6 +9,7 @@
 
 package com.feedzai.firstsystemtestsworkshop.systemtests;
 
+import com.feedzai.firstsystemtestsworkshop.testingframework.common.Owner;
 import com.feedzai.firstsystemtestsworkshop.testingframework.config.EnvironmentProperties;
 import com.feedzai.firstsystemtestsworkshop.testingframework.restapi.PetclinicApi;
 import org.apache.http.HttpStatus;
@@ -68,17 +69,19 @@ public class PetClinicApiTest {
      */
     @Test
     public void addNewUser() {
-        Map<String, String> owner = ImmutableMap.of(
-                "firstName", "John",
-                "lastName", "Doe",
-                "address", "Instituto Pedro Nunes",
-                "city", "Coimbra",
-                "telephone", "999999999");
-
+        final Owner owner = Owner.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .address("Instituto Pedro Nunes")
+                .city("Coimbra")
+                .telephone("999999999").build();
         petclinicApi.addOwner(owner);
 
         petclinicApi.listOwners().assertThat().body(
-                "", hasItems(Matchers.hasEntry("firstName", "John"), Matchers.hasEntry("lastName", "Doe"))
+                "", hasItems(
+                        Matchers.hasEntry("firstName", owner.getFirstName()),
+                        Matchers.hasEntry("lastName", owner.getLastName())
+                )
         );
     }
 }
