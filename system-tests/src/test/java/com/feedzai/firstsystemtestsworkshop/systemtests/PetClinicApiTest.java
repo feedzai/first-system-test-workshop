@@ -23,6 +23,7 @@ import org.testcontainers.shaded.com.google.common.collect.ImmutableMap;
 
 import java.util.Map;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 
 /**
@@ -83,5 +84,86 @@ public class PetClinicApiTest {
                         Matchers.hasEntry("lastName", owner.getLastName())
                 )
         );
+    }
+
+    /**
+     * Test the creation of users with invalid telephone numbers.
+     * The following scenarios are validated:
+     * <ul>
+     *     <li>Null telephone number - not sent in the request</li>
+     *     <li>Telephone number with letters</li>
+     *     <li>Empty telephone number - sent in the request as empty string</li>
+     *     <li>Upper bound telephone number - 11 digits</li>
+     *     <li>Non digit / letters characters</li>
+     * </ul>
+     */
+    @Test
+    public void addNewUserInvalidTelephone() {
+        final String missingTelephoneMessage = "must not be empty";
+        final String invalidTelephoneFormatMessage = "numeric value out of bounds (<10 digits>.<0 digits> expected)";
+
+        final Owner invalidTelephone = Owner.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .address("Instituto Pedro Nunes")
+                .city("Coimbra")
+                .build();
+
+        petclinicApi.addOwnerAndAssertError(
+                invalidTelephone,
+                "telephone",
+                missingTelephoneMessage,
+                null);
+
+        invalidTelephone.setTelephone("abc");
+        petclinicApi.addOwnerAndAssertError(
+                invalidTelephone,
+                "telephone",
+                invalidTelephoneFormatMessage,
+                "abc");
+
+        invalidTelephone.setTelephone("");
+        petclinicApi.addOwnerAndAssertError(
+                invalidTelephone,
+                "telephone",
+                invalidTelephoneFormatMessage,
+                "");
+
+        invalidTelephone.setTelephone("1234567891011");
+        petclinicApi.addOwnerAndAssertError(
+                invalidTelephone,
+                "telephone",
+                invalidTelephoneFormatMessage,
+                "1234567891011");
+
+        invalidTelephone.setTelephone("1.02");
+        petclinicApi.addOwnerAndAssertError(
+                invalidTelephone,
+                "telephone",
+                invalidTelephoneFormatMessage,
+                "1.02");
+    }
+
+    /**
+     * Test the creation of users with valid telephone numbers.
+     * <ul>
+     *     <li>Number of characters in the lower bound of 1 digit</li>
+     *     <li>Number of characters in the upper bound of 10 digits</li>
+     * </ul>
+     */
+    @Test
+    public void validTelephone() {
+        final Owner validOwner = Owner.builder()
+                .firstName("owner 1")
+                .lastName("owner 1")
+                .address("Instituto Pedro Nunes")
+                .city("Coimbra")
+                .build();
+
+        validOwner.setTelephone("1");
+        petclinicApi.addOwner(validOwner).assertThat().statusCode(HttpStatus.SC_CREATED);
+
+        validOwner.setTelephone("1234567890");
+        petclinicApi.addOwner(validOwner).assertThat().statusCode(HttpStatus.SC_CREATED);
     }
 }

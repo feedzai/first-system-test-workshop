@@ -17,8 +17,12 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.response.ValidatableResponseOptions;
 import io.restassured.specification.RequestSpecification;
+import org.apache.http.HttpStatus;
+import org.hamcrest.Matchers;
 
 import java.util.Map;
+
+import static org.hamcrest.CoreMatchers.hasItems;
 
 /**
  * Rest Assured implementation to call the PetClinic API.
@@ -95,9 +99,37 @@ public class PetclinicApi {
 
     /**
      * Sends a request to add a new owner in PetClinic.
+     *
+     * @param owner the object that represents the owner to be added.
      * @return a response with success / failure.
      */
     public ValidatableResponseOptions<ValidatableResponse, Response> addOwner(final Object owner) {
         return this.post("owners", owner);
+    }
+
+    /**
+     * Sends a request to add a new owner with invalid configuration in PetClinic and asserts the error message.
+     *
+     * @param owner         the object that represents the owner with invalid configuration to be added.
+     * @param fieldName     the name from the field that generated the error.
+     * @param errorMessage  the error message expected to be presented.
+     * @param rejectedValue the value from the field rejected.
+     * @return a response with success / failure.
+     */
+    public ValidatableResponseOptions<ValidatableResponse, Response> addOwnerAndAssertError(
+            final Object owner,
+            final String fieldName,
+            final String errorMessage,
+            final String rejectedValue) {
+        return this.post("owners", owner)
+                .assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)
+                .assertThat().body(
+                        "errors",
+                        hasItems(
+                                Matchers.hasEntry("defaultMessage", errorMessage),
+                                Matchers.hasEntry("field", fieldName),
+                                Matchers.hasEntry("rejectedValue", rejectedValue)
+                        )
+                );
     }
 }
