@@ -67,10 +67,37 @@ public class PetclinicApi {
     }
 
     /**
+     * Send a POST's request to the {@code endpoint}.
+     *
+     * @param endpoint  The endpoint used to perform the request.
+     * @param body      The body of the request.
+     * @return a response.
+     */
+    private ValidatableResponseOptions<ValidatableResponse, Response> post(
+            final String endpoint,
+            final Object body) {
+        return RestAssured.given()
+                .spec(this.spec)
+                .body(body)
+                .when()
+                .post(endpoint)
+                .then()
+                .log().ifValidationFails();
+    }
+
+    /**
      * Sends a request to list all the owners registered in PetClinic.
      * @return a response with all the owners.
      */
     public ValidatableResponseOptions<ValidatableResponse, Response> listOwners() {
         return this.get("owners/list", ImmutableMap.<String, Object>of());
+    }
+
+    /**
+     * Sends a request to add a new owner in PetClinic.
+     * @return a response with success / failure.
+     */
+    public ValidatableResponseOptions<ValidatableResponse, Response> addOwner(final Object owner) {
+        return this.post("owners", owner);
     }
 }

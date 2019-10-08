@@ -18,6 +18,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
+import org.testcontainers.shaded.com.google.common.collect.ImmutableMap;
+
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 
@@ -57,6 +60,25 @@ public class PetClinicApiTest {
     public void assertUsersList() {
         petclinicApi.listOwners().assertThat().body(
                 "", hasItems(Matchers.hasEntry("firstName", "George"), Matchers.hasEntry("lastName", "Franklin"))
+        );
+    }
+
+    /**
+     * Call Rest API 'owners' endpoint to add a new user.
+     */
+    @Test
+    public void addNewUser() {
+        Map<String, String> owner = ImmutableMap.of(
+                "firstName", "John",
+                "lastName", "Dow",
+                "address", "Instituto Pedro Nunes",
+                "city", "Coimbra",
+                "telephone", "999999999");
+
+        petclinicApi.addOwner(owner);
+
+        petclinicApi.listOwners().assertThat().body(
+                "", hasItems(Matchers.hasEntry("firstName", "John"), Matchers.hasEntry("lastName", "Dow"))
         );
     }
 }
