@@ -31,6 +31,6 @@ public class PetclinicOwners {
      * @param ownerName the name from the owner to be asserted.
      */
     public void assertOwnerDisplayedInTable(final String ownerName) {
-        $("table a").shouldHave(Condition.text(ownerName));
+        $(SelectorsHelpers.OWNER_NAME_LINK_IN_TABLE_ELEMENT).shouldHave(Condition.text(ownerName));
     }
 }

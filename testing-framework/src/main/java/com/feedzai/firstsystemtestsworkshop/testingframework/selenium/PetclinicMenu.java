@@ -21,7 +21,7 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class PetclinicMenu {
     /**
-     * Constructor that allow PetclinicMenu  instantiation.
+     * Constructor that allow PetclinicMenu instantiation.
      */
     public PetclinicMenu() { }
 
@@ -29,14 +29,17 @@ public class PetclinicMenu {
      * Click in the home button.
      */
     public void clickHomeButton() {
-        $(Selectors.byAttribute("title", "home page")).click();
+        $(Selectors.byAttribute(
+                SelectorsHelpers.TOP_MENU_BUTTON_ATTRIBUTE_NAME,
+                SelectorsHelpers.HOME_PAGE_BUTTON_ATTRIBUTE_VALUE)
+        ).click();
     }
 
     /**
      * Click list all Owners.
      */
     public void clickListOwners() {
-        $(Selectors.byText("Owners")).click();
-        $(Selectors.withText("All")).click();
+        $(Selectors.byText(SelectorsHelpers.OWNERS_BUTTON_LABEL)).click();
+        $(Selectors.byText(SelectorsHelpers.All_OWNERS_BUTTON_LABEL)).click();
     }
 }

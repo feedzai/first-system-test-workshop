@@ -64,7 +64,7 @@ public class PetclinicSelenium {
      * Asserts that the expected 'Welcome message' is displayed in the PetClinic homepage.
      */
     public void assertHomePage() {
-        Selenide.$("layout-welcome").shouldHave(Condition.text("Welcome to Petclinic"));
+        Selenide.$(SelectorsHelpers.WELCOME_PAGE_LAYOUT_ELEMENT).shouldHave(Condition.text("Welcome to Petclinic"));
     }
 
     /**
