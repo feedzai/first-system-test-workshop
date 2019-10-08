@@ -70,7 +70,7 @@ public class PetClinicApiTest {
     public void addNewUser() {
         Map<String, String> owner = ImmutableMap.of(
                 "firstName", "John",
-                "lastName", "Dow",
+                "lastName", "Doe",
                 "address", "Instituto Pedro Nunes",
                 "city", "Coimbra",
                 "telephone", "999999999");
@@ -78,7 +78,7 @@ public class PetClinicApiTest {
         petclinicApi.addOwner(owner);
 
         petclinicApi.listOwners().assertThat().body(
-                "", hasItems(Matchers.hasEntry("firstName", "John"), Matchers.hasEntry("lastName", "Dow"))
+                "", hasItems(Matchers.hasEntry("firstName", "John"), Matchers.hasEntry("lastName", "Doe"))
         );
     }
 }
