@@ -30,6 +30,10 @@ public class EnvironmentProperties {
      * Default port where PetClinic app is listening inside the container.
      */
     public static final int PETCLINIC_HTTP_PORT = 8080;
+    /**
+     * Default host name from the machine where the containers are running.
+     */
+    public static final String PETCLINIC_HOST = "localhost";
 
     /**
      * Private constructor to avoid instantiation.

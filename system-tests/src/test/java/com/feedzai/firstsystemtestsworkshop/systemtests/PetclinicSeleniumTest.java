@@ -22,7 +22,7 @@ public class PetclinicSeleniumTest {
      * PelClinic Selenium implementation.
      */
     PetclinicSelenium petclinicSelenium = new PetclinicSelenium(
-            "localhost", EnvironmentProperties.PETCLINIC_HTTP_PORT);
+            EnvironmentProperties.PETCLINIC_HOST, EnvironmentProperties.PETCLINIC_HTTP_PORT);
 
     @Test
     @Ignore("We are not integrated with test containers, environment needs to be bootstrapped manually.")
