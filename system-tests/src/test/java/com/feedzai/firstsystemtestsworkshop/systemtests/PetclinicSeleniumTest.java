@@ -11,7 +11,6 @@ package com.feedzai.firstsystemtestsworkshop.systemtests;
 
 import com.feedzai.firstsystemtestsworkshop.testingframework.config.EnvironmentProperties;
 import com.feedzai.firstsystemtestsworkshop.testingframework.selenium.PetclinicSelenium;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -28,7 +27,6 @@ public class PetclinicSeleniumTest {
      * Uses Selenium to navigate to the owners page and assert that the owners list presented contain the given owner.
      */
     @Test
-    @Ignore("We are not integrated with test containers, environment needs to be bootstrapped manually.")
     public void assertUsersList() {
         petclinicSelenium.menu().clickHomeButton();
         petclinicSelenium.menu().clickListOwners();
