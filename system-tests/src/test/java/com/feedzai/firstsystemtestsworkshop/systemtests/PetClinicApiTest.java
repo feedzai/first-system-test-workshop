@@ -15,30 +15,24 @@ import com.feedzai.firstsystemtestsworkshop.testingframework.restapi.PetclinicAp
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
-import org.junit.Rule;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
-import org.testcontainers.shaded.com.google.common.collect.ImmutableMap;
 
-import java.util.Map;
-
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 
 /**
  * Tests for the PetClinic API.
  */
 public class PetClinicApiTest {
-    /**
-    @Rule
-    public GenericContainer petclinic = new GenericContainer<>(EnvironmentProperties.PETCLINIC_DOCKER_IMAGE)
+    @ClassRule
+    public static GenericContainer petclinic = new GenericContainer<>(EnvironmentProperties.PETCLINIC_DOCKER_IMAGE)
             .withExposedPorts(EnvironmentProperties.PETCLINIC_HTTP_PORT)
             .waitingFor(
                     new HttpWaitStrategy()
                             .forPort(EnvironmentProperties.PETCLINIC_HTTP_PORT)
                             .forStatusCode(HttpStatus.SC_OK));
-    **/
 
 
     /**
@@ -51,8 +45,8 @@ public class PetClinicApiTest {
      */
     @BeforeClass
     public static void beforeClass() {
-        //servicePort = petclinic.getMappedPort(EnvironmentProperties.PETCLINIC_HTTP_PORT);
-        petclinicApi = new PetclinicApi(EnvironmentProperties.PETCLINIC_DEFAULT_HOST, 8080);
+        final int servicePort = petclinic.getMappedPort(EnvironmentProperties.PETCLINIC_HTTP_PORT);
+        petclinicApi = new PetclinicApi(EnvironmentProperties.PETCLINIC_DEFAULT_HOST, servicePort);
     }
 
     /**
