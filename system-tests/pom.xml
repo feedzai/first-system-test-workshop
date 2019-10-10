@@ -35,5 +35,9 @@
       <groupId>org.testcontainers</groupId>
       <artifactId>selenium</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+    </dependency>
   </dependencies>
 </project>

@@ -13,6 +13,7 @@ import com.feedzai.firstsystemtestsworkshop.testingframework.common.Owner;
 import com.feedzai.firstsystemtestsworkshop.testingframework.config.EnvironmentProperties;
 import com.feedzai.firstsystemtestsworkshop.testingframework.restapi.PetclinicApi;
 import com.feedzai.firstsystemtestsworkshop.testingframework.selenium.PetclinicSelenium;
+import com.github.javafaker.Faker;
 import org.apache.http.HttpStatus;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -55,6 +56,12 @@ public class PetclinicSeleniumTest {
      */
     public static PetclinicApi petclinicApi;
 
+    /**
+     * Use Faker to generate data for the tests.
+     * See https://github.com/DiUS/java-faker.
+     */
+    private Faker faker = new Faker();
+
     @BeforeClass
     public static void beforeClass() {
         LOGGER.info("VNC address for Chrome container: " + chrome.getVncAddress());
@@ -85,12 +92,12 @@ public class PetclinicSeleniumTest {
     @Test
     public void addPetToOwner() {
         final Owner owner = Owner.builder()
-                .firstName("Selenium")
-                .lastName("Owner")
-                .address("Selenium Address")
-                .city("Selenium City")
-                .telephone("999999999").build();
-        petclinicApi.addOwner(owner);
+                .firstName(faker.name().firstName())
+                .lastName(faker.name().lastName())
+                .address(faker.address().streetAddress())
+                .city(faker.address().city())
+                .telephone(faker.number().digits(9)).build();
+        petclinicApi.addOwner(owner).assertThat().statusCode(HttpStatus.SC_CREATED);
 
         petclinicSelenium.menu().clickListOwners();
         petclinicSelenium.owners().clickOwnerName(owner.getFullName());

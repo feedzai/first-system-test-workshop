@@ -20,6 +20,7 @@
     <rest-assured.version>3.1.1</rest-assured.version>
     <lombok.version>1.18.10</lombok.version>
     <jackson.version>2.9.9.3</jackson.version>
+    <faker.version>1.0.1</faker.version>
   </properties>
 
   <dependencyManagement>
@@ -84,6 +85,13 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>${jackson.version}</version>
+      </dependency>
+
+      <!-- Faker to generate test data without having to think in stupid names :) -->
+      <dependency>
+        <groupId>com.github.javafaker</groupId>
+        <artifactId>javafaker</artifactId>
+        <version>${faker.version}</version>
       </dependency>
 
       <!-- Junit as framework to run the tests -->
