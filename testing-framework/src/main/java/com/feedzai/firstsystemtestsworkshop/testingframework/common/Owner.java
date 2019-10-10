@@ -27,4 +27,12 @@ public class Owner {
     private String city;
     @JsonProperty("telephone")
     private String telephone;
+
+    /**
+     * Return the Full name from the Owner.
+     * @return the value from {@link #firstName} and {@link #lastName} separated by a space.
+     */
+    public String getFullName() {
+        return String.format("%s %s", firstName, lastName);
+    }
 }

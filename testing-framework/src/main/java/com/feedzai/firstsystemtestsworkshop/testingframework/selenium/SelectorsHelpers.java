@@ -37,4 +37,21 @@ public class SelectorsHelpers {
     public static final String OWNERS_BUTTON_LABEL = "Owners";
 
     public static final String All_OWNERS_BUTTON_LABEL = "All";
+
+    public static final String ADD_PET_BUTTON_LABEL = "Add New Pet";
+
+    public static final String PET_NAME_INPUT_LABEL = "Name";
+
+    public static final String PET_BIRTH_INPUT_LABEL = "Birth date";
+
+    public static final String PET_TYPE_INPUT_LABEL = "Type";
+
+    public static final String SUBMIT_PET_BUTTON_LABEL = "Submit";
+
+    // Selectors by class
+
+    public static final String GENERIC_BUTTON_CLASS = ".btn-default";
+
+    public static final String FORM_INPUT_LOCATOR = ".form-group";
+
 }
