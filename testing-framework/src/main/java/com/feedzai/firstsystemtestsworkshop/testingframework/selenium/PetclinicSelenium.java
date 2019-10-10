@@ -10,6 +10,7 @@
 package com.feedzai.firstsystemtestsworkshop.testingframework.selenium;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.WebDriver;
@@ -33,6 +34,11 @@ public class PetclinicSelenium {
      * Endpoint for the {@link PetclinicOwnersList}.
      */
     private PetclinicOwnersList ownersPage = new PetclinicOwnersList();
+
+    // Set destination folder for screenshots from failed tests
+    static {
+        Configuration.reportsFolder = "target/selenide-reports";
+    }
 
     /**
      * The constructor for the Selenide implementation of the PetClinic application.
