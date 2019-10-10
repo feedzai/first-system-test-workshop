@@ -10,20 +10,19 @@
 package com.feedzai.firstsystemtestsworkshop.testingframework.selenium;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selectors;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 /**
- * Screen that allow us to search for PetclinicOwners.
+ * Screen that allow us to search for PetclinicOwnersList.
  *
  * @author Ricardo Lopes (ricardo.lopes@feedzai.com)
  */
-public class PetclinicOwners {
+public class PetclinicOwnersList {
     /**
-     * Constructor that allow PetclinicOwners  instantiation.
+     * Constructor that allow PetclinicOwnersList  instantiation.
      */
-    public PetclinicOwners() { }
+    public PetclinicOwnersList() { }
 
     /**
      * Assert that a given owner name is displayed in the owners list.
@@ -31,6 +30,6 @@ public class PetclinicOwners {
      * @param ownerName the name from the owner to be asserted.
      */
     public void assertOwnerDisplayedInTable(final String ownerName) {
-        $(SelectorsHelpers.OWNER_NAME_LINK_IN_TABLE_ELEMENT).shouldHave(Condition.text(ownerName));
+        $$(SelectorsHelpers.OWNER_NAME_LINK_IN_TABLE_ELEMENT).find(Condition.text(ownerName)).exists();
     }
 }

@@ -34,7 +34,6 @@
       <groupId>org.testcontainers</groupId>
       <artifactId>selenium</artifactId>
       <version>${test-containers.version}</version>
-      <scope>test</scope>
     </dependency>
 
     <dependency>

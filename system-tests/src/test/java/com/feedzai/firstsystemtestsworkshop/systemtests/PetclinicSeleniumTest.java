@@ -22,10 +22,10 @@ public class PetclinicSeleniumTest {
      * PelClinic Selenium implementation.
      */
     PetclinicSelenium petclinicSelenium = new PetclinicSelenium(
-            EnvironmentProperties.PETCLINIC_HOST, EnvironmentProperties.PETCLINIC_HTTP_PORT);
+            EnvironmentProperties.PETCLINIC_DEFAULT_HOST, EnvironmentProperties.PETCLINIC_HTTP_PORT);
 
     /**
-     * Uses Selenium to navigate to the owners page and assert that the users list presented contain the given user.
+     * Uses Selenium to navigate to the owners page and assert that the owners list presented contain the given owner.
      */
     @Test
     @Ignore("We are not integrated with test containers, environment needs to be bootstrapped manually.")

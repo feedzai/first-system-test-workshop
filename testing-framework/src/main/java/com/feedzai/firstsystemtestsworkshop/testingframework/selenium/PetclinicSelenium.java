@@ -30,9 +30,9 @@ public class PetclinicSelenium {
      */
     private PetclinicMenu petclinicMenu = new PetclinicMenu();
     /**
-     * Endpoint for the {@link PetclinicOwners}.
+     * Endpoint for the {@link PetclinicOwnersList}.
      */
-    private PetclinicOwners ownersPage = new PetclinicOwners();
+    private PetclinicOwnersList ownersPage = new PetclinicOwnersList();
 
     /**
      * The constructor for the Selenide implementation of the PetClinic application.
@@ -76,10 +76,10 @@ public class PetclinicSelenium {
     }
 
     /**
-     * Provide access to the {@link PetclinicOwners} endpoint.
-     * @return the {@link PetclinicOwners} page.
+     * Provide access to the {@link PetclinicOwnersList} endpoint.
+     * @return the {@link PetclinicOwnersList} page.
      */
-    public PetclinicOwners owners() {
+    public PetclinicOwnersList owners() {
         return ownersPage;
     }
 

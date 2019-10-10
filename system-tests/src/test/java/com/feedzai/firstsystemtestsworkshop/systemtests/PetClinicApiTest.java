@@ -39,7 +39,7 @@ public class PetClinicApiTest {
     public void assertUsersList() {
         final int servicePort = petclinic.getMappedPort(EnvironmentProperties.PETCLINIC_HTTP_PORT);
 
-        final PetclinicApi petclinicApi = new PetclinicApi(EnvironmentProperties.PETCLINIC_HOST, servicePort);
+        final PetclinicApi petclinicApi = new PetclinicApi(EnvironmentProperties.PETCLINIC_DEFAULT_HOST, servicePort);
 
         petclinicApi.listOwners().assertThat().body(
                 "", hasItems(Matchers.hasEntry("firstName", "George"), Matchers.hasEntry("lastName", "Franklin"))

@@ -25,7 +25,7 @@ public class EnvironmentProperties {
      * Hostname used by the selenium tests when run with test-containers.
      * See https://docs.docker.com/docker-for-mac/networking/#known-limitations-use-cases-and-workarounds.
      */
-    public static final String HOSTNAME = "host.docker.internal";
+    public static final String TEST_CONTAINERS_SELENIUM_HOSTNAME = "host.docker.internal";
     /**
      * Default port where PetClinic app is listening inside the container.
      */
@@ -33,7 +33,7 @@ public class EnvironmentProperties {
     /**
      * Default host name from the machine where the containers are running.
      */
-    public static final String PETCLINIC_HOST = "localhost";
+    public static final String PETCLINIC_DEFAULT_HOST = "localhost";
 
     /**
      * Private constructor to avoid instantiation.

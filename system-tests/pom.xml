@@ -29,6 +29,7 @@
       <groupId>com.feedzai.firstsystemtestsworkshop.testingframework</groupId>
       <artifactId>testing-framework</artifactId>
       <version>${project.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
