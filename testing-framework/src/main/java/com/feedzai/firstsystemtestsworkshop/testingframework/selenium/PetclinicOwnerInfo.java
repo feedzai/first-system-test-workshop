@@ -9,10 +9,6 @@
 
 package com.feedzai.firstsystemtestsworkshop.testingframework.selenium;
 
-import com.codeborne.selenide.Condition;
-
-import static com.codeborne.selenide.Selenide.$$;
-
 /**
  * Screen that show the information from a given Owner.
  *

@@ -14,7 +14,6 @@ import com.feedzai.firstsystemtestsworkshop.testingframework.config.EnvironmentP
 import com.feedzai.firstsystemtestsworkshop.testingframework.restapi.PetclinicApi;
 import com.feedzai.firstsystemtestsworkshop.testingframework.selenium.PetclinicSelenium;
 import org.apache.http.HttpStatus;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
