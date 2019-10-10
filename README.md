@@ -50,8 +50,49 @@ If there are any questions or issues in the setup, feel free to email me: ricard
 ## Step by step
 
 ### Your First System Test, an introduction to Test Automation
-### 1 - TDB
-This section will be only be some hours before the workshop.
+### 1 - Bootstrap the application under test manually with Docker.
+Run the following command:
+```sh
+docker run -dit -p 8080:8080 --name petclinic arey/springboot-petclinic
+```
+
+### 2 - Add a new RestAPI test to validate the 'Add Owner' functionality at `PetClinicApiTest` class
+Lets start by doing it manually in Chrome:
+- Open the browser and navigate to the PetClinic homepage at http://localhost:8080
+- Open the Chrome Dev Tools in the Network tab
+- Fill the user form and submit. The body from the POST request to create the owner should be similar to:
+```json
+{
+  "firstName":"John",
+  "lastName":"Dow",
+  "address":"Instituto Pedro Nunes",
+  "city":"Coimbra",
+  "telephone":"200000000",
+  }
+```
+Now in the project open the `PetClinicApiTest` class and add a new test that adds a new owner to PetClinic:
+- Create a `post` and `addOwner` method in `PetclinicApi` class
+- Add a parameter body in `addOwner` with type `Object`
+- Create a new test calling that endpoint, pass a map in the body parameter with the structure from the json above
+
+### 3 - Create a Owner Object using a builder pattern
+
+### 4 - Add a set of Rest API tests to validate the telephone number implementation
+
+### 5 - Enable the `PetClinicApiTest` to run against Test Containers instead of a already running container
+
+### 6 - Execute the Selenium Test and ensure that it works
+
+### 7 - Add a new Selenium test that associates a new Pet with an existent user
+
+### 8 - Refactor the code in order to have methods to interact with common elements
+
+### 9 - Setup the Test-containers to run against Test Containers instead of a already running container
+
+### 10 - Ensure that all tests run with
+```sh
+mvn clean install
+```
 
 --- 
 ### Learn More
