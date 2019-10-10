@@ -10,6 +10,7 @@
 package com.feedzai.firstsystemtestsworkshop.testingframework.selenium;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -30,12 +31,20 @@ public class PetclinicOwnersList {
     public PetclinicOwnersList() { }
 
     /**
+     * Provide access to the {@link PetclinicOwnerInfo} endpoint.
+     * @return the {@link PetclinicOwnerInfo} page.
+     */
+    public PetclinicOwnerInfo info() {
+        return ownersInfoPage;
+    }
+
+    /**
      * Assert that a given owner name is displayed in the owners list.
      *
      * @param ownerName the name from the owner to be asserted.
      */
     public void assertOwnerDisplayedInTable(final String ownerName) {
-        $$(SelectorsHelpers.OWNER_NAME_LINK_IN_TABLE_ELEMENT).find(Condition.text(ownerName)).exists();
+        getOwnerNameElement(ownerName).exists();
     }
 
     /**
@@ -44,7 +53,7 @@ public class PetclinicOwnersList {
      * @param ownerName the name from the owner to be clicked.
      */
     public void clickOwnerName(final String ownerName) {
-        $$(SelectorsHelpers.OWNER_NAME_LINK_IN_TABLE_ELEMENT).find(Condition.text(ownerName)).click();
+        getOwnerNameElement(ownerName).click();
     }
 
     /**
@@ -54,17 +63,19 @@ public class PetclinicOwnersList {
      * @param ownerName the name from the pet associated with the owner.
      */
     public void assertPetFromOwner(final String ownerName, final String petName) {
-        $$(SelectorsHelpers.OWNER_NAME_LINK_IN_TABLE_ELEMENT)
-                .find(Condition.text(ownerName))
+        getOwnerNameElement(ownerName)
+                // We need to get the tr element that is the one that identify the row
                 .parent().parent()
+                // After we get the associated pet column that has the index 4
                 .$$("td").get(4).shouldHave(Condition.matchesText(petName));
     }
 
     /**
-     * Provide access to the {@link PetclinicOwnerInfo} endpoint.
-     * @return the {@link PetclinicOwnerInfo} page.
+     * Get the element used to identify the owner in the Owners List table.
+     *
+     * @param ownerName the name from the owner.
      */
-    public PetclinicOwnerInfo info() {
-        return ownersInfoPage;
+    private SelenideElement getOwnerNameElement(final String ownerName) {
+        return $$(SelectorsHelpers.OWNER_NAME_LINK_IN_TABLE_ELEMENT).find(Condition.text(ownerName));
     }
 }
