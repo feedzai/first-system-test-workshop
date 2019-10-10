@@ -13,24 +13,62 @@ import com.feedzai.firstsystemtestsworkshop.testingframework.common.Owner;
 import com.feedzai.firstsystemtestsworkshop.testingframework.config.EnvironmentProperties;
 import com.feedzai.firstsystemtestsworkshop.testingframework.restapi.PetclinicApi;
 import com.feedzai.firstsystemtestsworkshop.testingframework.selenium.PetclinicSelenium;
+import org.apache.http.HttpStatus;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Test;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testcontainers.containers.BrowserWebDriverContainer;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
+
+import java.util.logging.Logger;
 
 /**
  * Tests for the PetClinic GUI.
  */
 public class PetclinicSeleniumTest {
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+    @ClassRule
+    public static GenericContainer petclinic = new GenericContainer<>(EnvironmentProperties.PETCLINIC_DOCKER_IMAGE)
+            .withExposedPorts(EnvironmentProperties.PETCLINIC_HTTP_PORT)
+            .waitingFor(
+                    new HttpWaitStrategy()
+                            .forPort(EnvironmentProperties.PETCLINIC_HTTP_PORT)
+                            .forStatusCode(HttpStatus.SC_OK));
+
+
+    @ClassRule
+    public static BrowserWebDriverContainer chrome =
+            new BrowserWebDriverContainer()
+                    .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.SKIP, null)
+                    .withCapabilities(new ChromeOptions());
+
     /**
      * PelClinic Selenium implementation.
      */
-    PetclinicSelenium petclinicSelenium = new PetclinicSelenium(
-            EnvironmentProperties.PETCLINIC_DEFAULT_HOST, EnvironmentProperties.PETCLINIC_HTTP_PORT);
+    public static PetclinicSelenium petclinicSelenium;
 
     /**
-     * PetClinic API to be used in the tests to create resources easily.
+     * PetClinic API to be used in the tests.
      */
-    public PetclinicApi petclinicApi = new PetclinicApi(
-            EnvironmentProperties.PETCLINIC_DEFAULT_HOST,
-            EnvironmentProperties.PETCLINIC_HTTP_PORT);
+    public static PetclinicApi petclinicApi;
+
+    @BeforeClass
+    public static void beforeClass() {
+        LOGGER.info("VNC address for Chrome container: " + chrome.getVncAddress());
+        petclinicSelenium = new PetclinicSelenium(
+                chrome.getWebDriver(),
+                EnvironmentProperties.TEST_CONTAINERS_SELENIUM_HOSTNAME,
+                petclinic.getMappedPort(EnvironmentProperties.PETCLINIC_HTTP_PORT)
+        );
+        petclinicApi = new PetclinicApi(
+                EnvironmentProperties.PETCLINIC_DEFAULT_HOST,
+                petclinic.getMappedPort(EnvironmentProperties.PETCLINIC_HTTP_PORT)
+        );
+    }
 
     /**
      * Uses Selenium to navigate to the owners page and assert that the users list presented contain the given user.
