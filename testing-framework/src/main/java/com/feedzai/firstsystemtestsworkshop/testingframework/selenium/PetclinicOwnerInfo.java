@@ -33,7 +33,7 @@ public class PetclinicOwnerInfo {
      * Clicks in add new Pet button.
      */
     public void clickAddNewPet() {
-        $$(SelectorsHelpers.GENERIC_BUTTON_CLASS).find(Condition.text(SelectorsHelpers.ADD_PET_BUTTON_LABEL)).click();
+        GenericElementHandlers.clickButton(SelectorsHelpers.ADD_PET_BUTTON_LABEL);
     }
 
     /**
