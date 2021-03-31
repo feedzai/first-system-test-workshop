@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>4.11</junit.version>
-    <google-guava.version>27.0-jre</google-guava.version>
+    <google-guava.version>29.0-jre</google-guava.version>
     <test-containers.version>1.12.2</test-containers.version>
     <seleniun.version>3.141.59</seleniun.version>
     <selenide.version>5.3.1</selenide.version>
